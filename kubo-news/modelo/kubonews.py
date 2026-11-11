@@ -18,8 +18,9 @@ def wrap(d,t,fo,maxw):
 def para(d,x,y,t,fo,fill,maxw,lh=1.34):
     for l in wrap(d,t,fo,maxw): d.text((x,y),l,font=fo,fill=fill);y+=int(fo.size*lh)
     return y
+TAG=['KUBO NEWS']
 def pill(img,x=70,y=110):
-    d=ImageDraw.Draw(img);fo=f('Bold',24);t='KUBO NEWS';sp=5
+    d=ImageDraw.Draw(img);fo=f('Bold',24);t=TAG[0];sp=5
     tw=sum(d.textlength(c,font=fo)+sp for c in t)-sp
     d.rounded_rectangle((x,y,x+tw+56,y+54),27,fill=(255,255,255),outline=BLUE,width=2)
     cx=x+28
@@ -38,11 +39,11 @@ def footer(img,i,n):
     if i<n-1:
         fo=f('SemiBold',26);d.text((W-90-(n-1)*26-28-d.textlength('Arraste',font=fo),H-109),'Arraste',font=fo,fill=GR)
 def base(): return Image.new('RGBA',(W,H),BGL)
-def cover(photo,t1,t2,sub,out,n=4):
-    img=base();ph=Image.open(photo).convert('RGB')
+def cover(photo,t1,t2,sub,out,n=4,label='Imagem ilustrativa'):
+    img=base();ph=photo if isinstance(photo,Image.Image) else Image.open(photo);ph=ph.convert('RGB')
     ph=ImageOps.fit(ph,(W,690),Image.LANCZOS,centering=(0.5,0.4));img.paste(ph,(0,0))
     pill(img);d=ImageDraw.Draw(img,'RGBA')
-    t='Imagem ilustrativa';fo=f('Medium',20);tw=d.textlength(t,font=fo)
+    t=label;fo=f('Medium',20);tw=d.textlength(t,font=fo)
     d.rounded_rectangle((W-tw-58,640,W-30,672),16,fill=(0,0,0,110));d.text((W-tw-44,644),t,font=fo,fill=(255,255,255,235))
     y=745
     for l in wrap(d,t1,f('Black',78),940): d.text((70,y),l,font=f('Black',78),fill=NAVY);y+=90
@@ -67,4 +68,13 @@ def last(src,out,n=4):
     yy=y+60;d.text((120,yy),'Siga a KUBO AI',font=f('Black',80),fill=NAVY);yy+=110
     yy=para(d,120,yy,'e acompanhe o que acontece no mundo da tecnologia',f('Bold',46),BLUE,800,1.28)+30
     d.text((120,yy),'@_kuboai',font=f('Bold',40),fill=NAVY)
+    footer(img,n-1,n);img.convert('RGB').save(out,quality=92)
+
+def cta(head,sub,botao,out,n=4):
+    img=base();pill(img);d=ImageDraw.Draw(img)
+    y=300
+    for l in wrap(d,head,f('Black',84),940): d.text((70,y),l,font=f('Black',84),fill=NAVY);y+=96
+    y=para(d,70,y+20,sub,f('Medium',40),GR,930,1.36)+60
+    fo=f('Bold',40);tw=d.textlength(botao,font=fo)
+    d.rounded_rectangle((70,y,70+tw+90,y+96),48,fill=BLUE);d.text((115,y+24),botao,font=fo,fill='white')
     footer(img,n-1,n);img.convert('RGB').save(out,quality=92)
