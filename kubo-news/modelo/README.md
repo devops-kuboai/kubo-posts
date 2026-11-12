@@ -19,3 +19,14 @@ Gera os carrosséis da série KUBO News no padrão aprovado (1080 x 1350, format
 Requisitos: Python 3 com Pillow e NumPy, e a fonte Inter Display (arquivos `InterDisplay-*.otf`).
 Se a fonte estiver em outra pasta, use a variável `KUBO_FONTES`.
 Para usar o logo oficial no lugar do recorte, defina `LOGO=caminho/do/logo.png`.
+
+# Modelo dos posts de produto (Agent-Hub e Follow Up)
+
+Fica em `produto/`. Visual diferente das notícias, para separar na galeria:
+- Cada tela com uma cor forte (branco, gradiente azul e violeta, amarelo)
+- Produto citado já na capa, título gigante e destaque amarelo
+- Selo com o nome do produto (AGENT-HUB ou FOLLOW UP) e logo no canto inferior esquerdo
+- Títulos sem ponto final
+
+Exemplo: `python3 produto/agenthub_carrossel.py` gera o carrossel "22h, a loja fechou" em `saida/`.
+Rascunhos ficam em `conteudo-kubo/<produto>/rascunhos/` e, depois de aprovados, em `conteudo-kubo/<produto>/AAAA-MM-DD/`.
