@@ -60,4 +60,8 @@ y=260
 for l in ['QUER VER','FUNCIONANDO','NO SEU','NEGÓCIO?']: d.text((66,y),l,font=f('Black',112),fill=INK);y+=120
 y+=40;d.rounded_rectangle((70,y,640,y+110),55,fill=INK);d.text((120,y+28),'Chame no Direct',font=f('Bold',46),fill='white')
 y+=150;d.text((70,y),'ou comente 1 aqui embaixo',font=f('SemiBold',38),fill=INK)
+# celular da capa, no canto inferior direito
+pb=ph.resize((int(ph.width*0.78),int(ph.height*0.78)))
+sh=Image.new('RGBA',(W,H));ImageDraw.Draw(sh).rounded_rectangle((630,830,630+pb.width,830+pb.height),50,fill=(60,40,0,110));c.alpha_composite(sh.filter(ImageFilter.GaussianBlur(30)))
+c.alpha_composite(pb.rotate(-5,expand=True,resample=Image.BICUBIC),(600,790))
 foot(c,3,n);c.convert('RGB').save(o+'ah2_4.jpg',quality=92)
